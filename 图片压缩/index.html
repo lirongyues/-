@@ -2,114 +2,133 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 		<title></title>
 		  <!--引入外部的js文件-->
 		  <script src="./util/exif.js"></script>
+		  <script src="./util/fingerprint.js"></script>
 	</head>
 	<style>
-		.img{
-			width:15rem;
-			height: 16rem;
-			position: relative;
-			overflow: hidden;
-		}
-		img{
-			width: 100%;
-			height: 100%;
-		}
-		.loading{
-			position: relative;
-			overflow: hidden;
-			background-color: #f1f1f1;
-			width: 100%;
-			height: 100%;
-		}
-		.loading::after{
-			content: "DOS";
-			position: absolute;
-			z-index: 99;
-			background-color: #f1f1f1;
-			display: block;
-			left: 50%;
-			top: 50%;
-		    transform: translate(-50%, -50%);
-			color: #80808029
-		}
-		.loading::before{
-			content: "";
-			position: absolute;
-			top: 0;
-			width: 30%;
-			height: 100%;
-			background: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsla(0, 0%, 100%, .3) 50%, hsla(0, 0%, 100%, 0));
-			transform: skewX(-45deg);
-			z-index: 99;
-			animation: skeleton-ani 0.8s ease infinite;
-			display: block;
-		} 
-		@keyframes skeleton-ani {
-		   from {
-				left:-100%;
-			}
-			100% {
-				left:150%;
-			}
-		}
-
 		body{
-            width: 100%;
+		    width: 100%;
+			height: 100vh;
 		}
-		.content{
-			display: flex;
-			left: 50%;
-			transform: translateX(-50%);
-			position: absolute;
+		@media only screen and (max-width: 768px) and (min-width: 0px){
+			*{
+				margin: 0 auto;
+			}
+			.father{text-align: center;}
+			h5{padding: 20px 0;}
+			.img{width: 230px;height: 250px;position: relative;overflow: hidden;}
+			.font{font-size: 20px;}
+			.file{position: relative;left: 50%;transform: translateX(-50%);margin-top:20px;relative;display: inline-block;background: #1E88C7;border: 1px solid #1E88C7;border-radius: 20px;padding: 7px 100px;overflow: hidden;color: white;text-decoration: none;text-indent: 0;border-radius: 15px;}
+			.file input{position: absolute;font-size: 100px;right: 0;top: 0;opacity: 0;}
+			.file:active{background: #0e5985;border-color: #0e5985;color: white;text-decoration: none;}
 		}
+		
+		@media only screen and (max-width: 992px) and (min-width: 768px){
+			*{
+				margin: 0 auto;
+			}
+			.father{display: center;display: flex;}
+			h5{padding: 20px 0;}
+			.img{width: 300px;height: 320px;position: relative;overflow: hidden;}
+			.font{font-size: 20px;}
+			.file{font-size: 16px;position: relative;left: 50%;transform: translateX(-50%);margin-top:40px;display: inline-block;background: #1E88C7;border: 1px solid #1E88C7;border-radius: 4px;padding: 10px 200px;overflow: hidden;color: white;text-decoration: none;text-indent: 0;border-radius: 25px;}
+			.file input{position: absolute;font-size: 100px;right: 0;top: 0;opacity: 0;}
+			.file:active{background: #0e5985;border-color: #0e5985;color: white;text-decoration: none;}
+		} 
+		
+		@media only screen and (max-width: 1200px) and (min-width: 992px){
+			*{
+				margin: 0 auto;
+			}
+			.father{display: center;display: flex;}
+			h5{padding: 20px 0;}
+			.img{width: 300px;height: 320px;position: relative;overflow: hidden;}
+			.font{font-size: 20px;}
+			.file{font-size: 16px;position: relative;left: 50%;transform: translateX(-50%);margin-top:40px;display: inline-block;background: #1E88C7;border: 1px solid #1E88C7;border-radius: 4px;padding: 10px 200px;overflow: hidden;color: white;text-decoration: none;text-indent: 0;border-radius: 25px;}
+			.file input{position: absolute;font-size: 100px;right: 0;top: 0;opacity: 0;}
+			.file:active{background: #0e5985;border-color: #0e5985;color: white;text-decoration: none;}
+		}
+ 		@media only screen and (max-width: 1920px) and (min-width: 1200px){
+			.father{font-size: 20px; width: 440px;position: absolute;left: 50%;transform: translateX(-50%);display: flex;}
+			h5{padding: 20px 0;}
+			.img{width: 200px;height: 220px;position: relative;overflow: hidden;}
+			.font{font-size: 20px;}
+			.file{font-size: 16px;position: absolute;top: 400px;left: 50%;transform: translateX(-50%);margin-top:40px;display: inline-block;background: #1E88C7;border: 1px solid #1E88C7;border-radius: 4px;padding: 10px 200px;overflow: hidden;color: white;text-decoration: none;text-indent: 0;border-radius: 25px;}
+			.file input{position: absolute;font-size: 100px;right: 0;top: 0;opacity: 0;}
+			.file:active{background: #0e5985;border-color: #0e5985;color: white;text-decoration: none;}
+			.son{padding: 10px;}
+		} 
+		img{width: 100%;height: 100%;}
+        .loading{position: relative;overflow: hidden;background-color: #f1f1f1;width: 100%;height: 100%;}
+        .loading::after{content: "DOS";position: absolute;z-index: 99;background-color: #f1f1f1;display: block;left: 50%;top: 50%;transform: translate(-50%, -50%);color: #80808029}
+        .loading::before{content: "";position: absolute;top: 0;width: 30%;height: 100%;background: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 0, hsla(0, 0%, 100%, .3) 50%, hsla(0, 0%, 100%, 0));transform: skewX(-45deg);z-index: 99;animation: skeleton-ani 0.8s ease infinite;display: block;} 
+        @keyframes skeleton-ani{from{left:-100%;}100%{left:150%;}}
 	</style>
 	<body>
-		<div class="content">
-			<div>
-				<h5>解压前的照片</h5>
-				<h5>文件大小：<span id="beforeSize"></span></h5>
-				<div  class="img">
-					<div class="loading"></div>
-					<img src="" id="img1">
+		<div>
+			<div class="father font">
+				<div class="son">
+					<h5>解压前文件大小：<span id="beforeSize"></span></h5>
+					<div  class="img">
+						<div class="loading"></div>
+						<img src="" id="img1">
+					</div>
 				</div>
-				<input type="file" accept="image/*" id="uploadImage" capture="camera" onchange="selectFileImage(this);"/>	
+				<div class="son">
+					<h5>解压后文件大小：<span id="afterSize"></span></h5>
+					<div  class="img">
+						<div class="loading"></div>
+						<img src="" id="img2">
+					</div>
+				</div>
 			</div>
-			<div>
-				<h5>解压后的照片</h5>
-				<h5>文件大小：<span id="afterSize"></span></h5>
-				<div  class="img">
-					<div class="loading"></div>
-					<img src="" id="img2">
-				</div>
+			<div class="file">
+				选择照片
+				<input type="file" accept="image/*" id="uploadImage" capture="camera" onchange="selectFileImage(this);" style="font-size: 25px;"/>	
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript">
+ 		var tag = new FingerPrint({
+		    size: '30px',
+		    color: '#f1f1f1', 
+		    id: 'fingerprint',
+		    text: 'DOS',
+		    density: 200,
+		    clarity: 1,
+		    supportTip: '你的浏览器不支持Canvas'
+		}) 
 		function selectFileImage (file) {
 			if(file && file.files && file.files[0]){
 				let imgFile = file.files[0];
-				document.getElementById('img1').src = window.URL.createObjectURL(imgFile);
-				var Orientation;
-				EXIF.getData(imgFile, function(){
-				  Orientation = EXIF.getAllTags(imgFile,'Orientation').Orientation;
-				  var image = new Image();
-				  console.log("Orientation",Orientation)
-				  image.src = window.URL.createObjectURL(imgFile)
-				  var interval = setInterval(()=>{
-					  if(image.complete == true){
-						  //清除定时器
-						  clearInterval(interval)
-						  //获取文件大小
-						  let fileSize = (imgFile.size/1048576).toFixed(2)
-						  console.log(imgFile.size)
-						  document.getElementById("beforeSize").innerHTML = imgFile.size
-						  compress(fileSize, image, Orientation)
-					  }
-				  })
-				})
+				var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
+				if(!imgStr.test(imgFile.name)){
+					alert("请选择图片！")
+					return false
+				}else{
+					document.getElementById('img1').src = window.URL.createObjectURL(imgFile);
+					var Orientation;
+					EXIF.getData(imgFile, function(){
+					  Orientation = EXIF.getAllTags(imgFile,'Orientation').Orientation;
+					  var image = new Image();
+					  console.log("Orientation",Orientation)
+					  image.src = window.URL.createObjectURL(imgFile)
+					  var interval = setInterval(()=>{
+						  if(image.complete == true){
+							  //清除定时器
+							  clearInterval(interval)
+							  //获取文件大小
+							  let fileSize = (imgFile.size/1048576).toFixed(2)
+							  console.log(imgFile.size)
+							  document.getElementById("beforeSize").innerHTML = imgFile.size
+							  compress(fileSize, image, Orientation)
+						  }
+					  }, 100)
+					})
+				}
 			}else{
 				return
 			}
@@ -176,72 +195,5 @@
 			}
 			return compressNum;
 		}
-		//添加水印
-		  function watermark(t1,t2,t3){
-		                  var maxWidth = document.documentElement.clientWidth;
-		                  var maxHeight = document.documentElement.clientHeight;
-		                  var intervalWidth = 340;    //间隔宽度
-		                  var intervalheight = 200;   //间隔高度
-		                 var rowNumber = (maxWidth - 40 -200) / intervalWidth;    //横向个数
-		                  var coumnNumber = (maxHeight - 40-80) / intervalheight;   //纵向个数
-		                  
-		                 //默认设置
-		                 var defaultSettings = {
-		                     watermark_color: '#aaa', //水印字体颜色
-		                     watermark_alpha: 0.5, //水印透明度
-		                     watermark_fontsize: '15px', //水印字体大小
-		                     watermark_font: '微软雅黑', //水印字体
-		                     watermark_width: 200, //水印宽度
-		                     watermark_height: 80, //水印长度
-		                     watermark_angle: 15 //水印倾斜度数
-		                 };
-		                     
-		                 var _temp = document.createDocumentFragment();
-		                 for(var i = 0; i < rowNumber; i++){
-		                     for(var j = 0; j < coumnNumber; j++){
-		                         var x = intervalWidth*i + 20;
-		                         var y = intervalheight*j + 30;
-		                         var mark_div = document.createElement('div');
-		                         mark_div.id = 'mark_div' + i + j;
-		                         mark_div.className = 'mark_div';
-		                         ///三个节点
-		                         var span0 = document.createElement('div');
-		                         span0.appendChild(document.createTextNode(t1));
-		                         var span1 = document.createElement('div');
-		                         span1.appendChild(document.createTextNode(t2));
-		                         var span2 = document.createElement('div');
-		                         span2.appendChild(document.createTextNode(t3));
-		                         mark_div.appendChild(span0);
-		                         mark_div.appendChild(span1);
-		                         mark_div.appendChild(span2);
-		                         //设置水印div倾斜显示
-		                         mark_div.style.webkitTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
-		                         mark_div.style.MozTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
-		                         mark_div.style.msTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
-		                         mark_div.style.OTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
-		                         mark_div.style.transform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
-		                         mark_div.style.visibility = "";
-		                         mark_div.style.position = "absolute";
-		                         mark_div.style.left = x + 'px';
-		                         mark_div.style.top = y + 'px';
-		                         mark_div.style.overflow = "hidden";
-		                         mark_div.style.zIndex = "9999";
-		                         mark_div.style.pointerEvents = 'none'; //pointer-events:none  让水印不阻止交互事件
-		                         mark_div.style.opacity = defaultSettings.watermark_alpha;
-		                         mark_div.style.fontSize = defaultSettings.watermark_fontsize;
-		                         mark_div.style.fontFamily = defaultSettings.watermark_font;
-		                         mark_div.style.color = defaultSettings.watermark_color;
-		                         mark_div.style.textAlign = "center";
-		                         mark_div.style.width = defaultSettings.watermark_width + 'px';
-		                         mark_div.style.height = defaultSettings.watermark_height + 'px';
-		                         mark_div.style.display = "block";
-		                         
-		                         _temp.appendChild(mark_div);
-		                     }
-		                 }
-		                 document.body.appendChild(_temp);
-		             }
-		             
-		             watermark('DOS','不一样的开源','');
 	</script>
 </html>
