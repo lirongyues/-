@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    .input-panel{
+		border: 1px solid gainsboro;
+		width: 100%;
+		height: 100px;
+	}
+    </style>
+</head>
+<body>
+<ul id="app">
+  <div class="input-panel" ref="msgInputContainer" @keydown.enter.exact="sendMessage($event)"
+       contenteditable="true" spellcheck="false"></div>
+</ul>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data(){
+            return {
+                
+            }
+        },
+        computed: {
+         
+        },
+        mounted(){
+			let input = this.$refs.msgInputContainer;
+			console.log(input)
+		},
+        methods: {
+              
+        },
+
+    })
+</script>
+</body>
+</html>
